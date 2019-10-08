@@ -43,23 +43,23 @@ try:
     socket.inet_aton(current_ip)
     conn = boto.route53.connect_to_region(os.getenv('AWS_CONNECTION_REGION', 'eu-west-1'))
     zone = conn.get_zone(zone_to_update)
-    for ip6record_to_update in records_to_update:
+    for record_to_update in records_to_update:
         ip6record_updated = False
         for ip6record in zone.get_records():
             # substitute '*' with '\052' due to boto weirdness
             # record = sub(r'\052','*', str(record))
-            sub_ip6record_to_update = sub(r'\*',r'\\052',ip6record_to_update)
-            if '<ip6Record:' + sub_ip6record_to_update + '.:A' in str(ip6record)  and not ip6record_updated:
+            sub_record_to_update = sub(r'\*',r'\\052',record_to_update)
+            if '<ip6Record:' + sub_record_to_update + '.:A' in str(ip6record)  and not ip6record_updated:
                 if current_ipv6 in ip6record.to_print():
-                    logging.info('%s IPv6 matches, doing nothing.', ip6record_to_update)
+                    logging.info('%s IPv6 matches, doing nothing.', record_to_update)
                 else:
-                    logging.info('%s IPv6 does not match, update needed.', ip6record_to_update)
-                    zone.delete_a(sub_ip6record_to_update)
-                    zone.add_a(ip6record_to_update, current_ipv6, ttl=options.ttl)
+                    logging.info('%s IPv6 does not match, update needed.', record_to_update)
+                    zone.delete_a(sub_record_to_update)
+                    zone.add_a(record_to_update, current_ipv6, ttl=options.ttl)
                 ip6record_updated = True
         if not ip6record_updated:
-            logging.info('%s IPv6record not found, add needed', ip6record_to_update)
-            zone.add_a(ip6record_to_update, current_ipv6, ttl=options.ttl)
+            logging.info('%s IPv6record not found, add needed', record_to_update)
+            zone.add_a(record_to_update, current_ipv6, ttl=options.ttl)
             ip6record_updated = True
             
     for record_to_update in records_to_update:
