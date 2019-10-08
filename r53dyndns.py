@@ -54,12 +54,12 @@ try:
                     logging.info('%s IPv6 matches, doing nothing.', record_to_update)
                 else:
                     logging.info('%s IPv6 does not match, update needed.', record_to_update)
-                    zone.delete_a(sub_record_to_update)
-                    zone.add_a(record_to_update, current_ipv6, ttl=options.ttl)
+                    zone.delete_aaaa(sub_record_to_update)
+                    zone.add_aaaa(record_to_update, current_ipv6, ttl=options.ttl)
                 ip6record_updated = True
         if not ip6record_updated:
             logging.info('%s IPv6record not found, add needed', record_to_update)
-            zone.add_a(record_to_update, current_ipv6, ttl=options.ttl)
+            zone.add_aaaa(record_to_update, current_ipv6, ttl=options.ttl)
             ip6record_updated = True
             
     for record_to_update in records_to_update:
