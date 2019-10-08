@@ -32,9 +32,9 @@ resolver.nameservers = [socket.gethostbyname('resolver1.opendns.com')]
 for rdata in resolver.query('myip.opendns.com', 'A'):
     current_ip = str(rdata)
     logging.info('Current IP address: %s', current_ip)
-for rdata in resolver.query('myip.opendns.com', 'AAAAA'):
-    current_ipv6 = str(rdata)
-    logging.info('Current IP address: %s', current_ipv6)
+#for rdata in resolver.query('myip.opendns.com', 'AAAAA'):
+    current_ipv6 = '2003:E9:8F22:8301:695A:E663:5D1A:AC84'
+    logging.info('Current IPv6 address: %s', current_ipv6)
     
 records_to_update = options.records_to_update.split(',')
 zone_to_update = '.'.join(records_to_update[0].split('.')[-2:])
