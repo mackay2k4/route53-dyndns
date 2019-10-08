@@ -1,12 +1,11 @@
-route53:
-    image: bradqwood/route53-dyndns
-    container_name: route53
-    restart: always
-    environment:
-        - AWS_ACCESS_KEY_ID=
-        - AWS_SECRET_ACCESS_KEY=
-        - AWS_CONNECTION_REGION=eu-west-1
-        - ROUTE53_DOMAIN_A_RECORD=
-        - ROUTE53_DOMAIN_AAAA_RECORD=
-        - ROUTE53_UPDATE_FREQUENCY=10800
-        - ROUTE53_RECORD_TTL=300
+  route53:
+      image: bradqwood/route53-dyndns
+      container_name: route53
+      restart: always
+      environment:
+          - AWS_ACCESS_KEY_ID=
+          - AWS_SECRET_ACCESS_KEY=
+          - AWS_CONNECTION_REGION=eu-west-1
+          - ROUTE53_DOMAIN_A_RECORD=
+          - ROUTE53_UPDATE_FREQUENCY=10800
+          - ROUTE53_RECORD_TTL=300
